@@ -35,4 +35,4 @@ rake db:migrate
 ```bash
 bin/rails s
 ```
-Check `http://http://127.0.0.1:3000` if app now available.
+Check `http://127.0.0.1:3000` if app now available.
