@@ -201,15 +201,61 @@ append :linked_dirs, "log", "tmp/pids", "tmp/cache", "public/uploads"
 # Prepare remote server
 
 Remote server
-```
+```bash
 ssh ruby
 mkdir -p apps/erfp/shared/config
 ```
 
 Local host
-```
+```bash
 scp config/master.key ruby:apps/erfp/shared/config
 scp config/credentials/production.key ruby:apps/erfp/shared/config
 ```
+# FIRST DEPLOY AATEMPT
+```bash
+cap production deploy
+```
+Afterwards you'll get error: (puma service doesn't exist)
+```
+Failed to restart puma_erfp_production.service: Unit puma_erfp_production.service not found.
+```
+## Login to remote server and create it:
+```bash
+vim /etc/systemd/system/puma_erfp_production.service
+```
+Paste the following:
+```
+[Unit]
+Description=Puma HTTP Server for erfp (production)
+After=network.target
 
+[Service]
+Type=simple
+User=rails
+WorkingDirectory=/home/meole/apps/erfp/current
+ExecStart=/home/meole/.rvm/bin/rvm default do bundle exec puma -C /home/meole/apps/erfp/shared/puma.rb
+ExecReload=/bin/kill -TSTP $MAINPID
+StandardOutput=append:/home/meole/apps/erfp/current/log/puma.access.log
+StandardError=append:/home/meole/apps/erfp/current/log/puma.error.log
+Restart=always
+RestartSec=1
+SyslogIdentifier=puma
 
+[Install]
+WantedBy=multi-user.target
+```
+Create socket directory
+```bash
+mkdir apps/erfp/shared/tmp/sockets
+```
+Activate newly created service
+```bash
+systemctl start puma_erfp_production.service
+systemctl enable puma_erfp_production.service
+systemctl status puma_erfp_production.service
+```
+-> Log OFF
+On local machine try to perfom deploy again:
+```bash
+cap production deploy
+```
