@@ -151,6 +151,7 @@ set :puma_worker_timeout, nil
 set :puma_init_active_record, true  # Change to false when not using ActiveRecord
 
 append :linked_files, "config/master.key"
+append :linked_files, "config/credentials/production.key"
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "public/uploads"
 
 # Default branch is :master
@@ -187,6 +188,19 @@ append :linked_dirs, "log", "tmp/pids", "tmp/cache", "public/uploads"
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
 
+```
+# Prepare remote server
+
+Remote server
+```
+ssh ruby
+mkdir -p apps/erfp/shared/config
+```
+
+Local host
+```
+scp config/master.key ruby:apps/erfp/shared/config
+scp config/credentials/production.key ruby:apps/erfp/shared/config
 ```
 
 
