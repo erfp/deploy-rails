@@ -260,3 +260,61 @@ On local machine try to perform deploy again:
 ```bash
 cap production deploy
 ```
+
+# GET NGINX Work with Puma:
+
+This manual has nginx `nginx version: nginx/1.24.0`
+
+Add nginx config for new site
+
+```bash
+vim /etc/nginx/conf.d/erfp.ru
+```
+
+Put there the following:
+```
+upstream puma-erfp {
+  server unix:///home/meole/apps/erfp/shared/tmp/sockets/erfp-puma.sock;
+}
+
+server {
+  server_name ror.erfp.ru;
+
+  root /home/meole/apps/erfp/current/public;
+  access_log /home/meole/apps/erfp/current/log/nginx.access.log;
+  error_log /home/meole/apps/erfp/current/log/nginx.error.log info;
+
+  location ^~ /assets/ {
+    gzip_static on;
+    expires max;
+    add_header Cache-Control public;
+  }
+
+  try_files $uri/index.html $uri @puma;
+  location @puma-erfp {
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_set_header  X-Forwarded-Proto $scheme;
+    proxy_set_header  X-Forwarded-Ssl on; # Optional
+    proxy_set_header  X-Forwarded-Port $server_port;
+    proxy_set_header  X-Forwarded-Host $host;
+
+    proxy_redirect off;
+
+    proxy_pass http://puma;
+  }
+
+  error_page 500 502 503 504 /500.html;
+  client_max_body_size 100M;
+  keepalive_timeout 10;
+}
+```
+
+Test nginx configs by running:
+```bash
+nginx -t
+```
+If everything is ok, restart nginx server
+```bash
+systemctl restart nginx
+```
