@@ -219,7 +219,7 @@ Afterwards you'll get error: (puma service doesn't exist)
 ```
 Failed to restart puma_erfp_production.service: Unit puma_erfp_production.service not found.
 ```
-## Login to remote server and create it:
+## Login to remote server and create named service:
 ```bash
 vim /etc/systemd/system/puma_erfp_production.service
 ```
@@ -255,7 +255,8 @@ systemctl enable puma_erfp_production.service
 systemctl status puma_erfp_production.service
 ```
 -> Log OFF
-On local machine try to perfom deploy again:
+
+On local machine try to perform deploy again:
 ```bash
 cap production deploy
 ```
