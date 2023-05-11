@@ -231,7 +231,7 @@ After=network.target
 
 [Service]
 Type=simple
-User=rails
+User=meole
 WorkingDirectory=/home/meole/apps/erfp/current
 ExecStart=/home/meole/.rvm/bin/rvm default do bundle exec puma -C /home/meole/apps/erfp/shared/puma.rb
 ExecReload=/bin/kill -TSTP $MAINPID
