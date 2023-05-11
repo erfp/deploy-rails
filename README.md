@@ -1,4 +1,4 @@
-# deploy-rails
+# Deploy rails application to VPS/VDS Ubuntu server with Capistrano
 Howto: Deploy rails app
 We'll use `erfp` as an application name for new rails project
 
@@ -35,3 +35,4 @@ rake db:migrate
 ```bash
 bin/rails s
 ```
+Check `http://http://127.0.0.1:3000` if app now available.
