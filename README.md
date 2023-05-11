@@ -75,9 +75,18 @@ Put password for newly created postgres role into production encrypted environme
 ```bash
 EDITOR="nano --wait" bin/rails credentials:edit --environment production
 ```
-add your password by adding following key and its value:
+Add your password by adding following key and its value:
 ```
 ERFP_DATABASE_PASSWORD: myStrongProductionPassword
+```
+Add host (`localhost`) to `config/database.yml`'s `production:` block:
+```yml
+production:
+  <<: *default
+  host: localhost
+  database: erfp_production
+  username: erfp
+  password: <%= ENV["ERFP_DATABASE_PASSWORD"] %>
 ```
 
 # Install Capistrano
