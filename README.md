@@ -327,3 +327,18 @@ If everything is ok, restart nginx server
 ```bash
 systemctl restart nginx
 ```
+Finally, adjust permissions for project files:
+```
+sudo chown meole:meole -R apps/erfp/
+```
+
+# Let's Encrypt
+
+To get you project available over SSL install LE certificates manager (certbot):
+```bash
+apt-get install certbot python3-certbot-nginx
+```
+Run the following command to install certificates on all nginx-enabled domains:
+```bash
+certbot --nginx
+```
