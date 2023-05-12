@@ -5,12 +5,12 @@ We'll use `erfp` as an application name for new rails project
 ---
 
 ## Prerequisites
-Ruby: 3.2.1
-Rails: 7.0.4.3
-Capistrano: 3.17.2
-Ubuntu 22.04.2 LTS (GNU/Linux 5.15.0-71-generic x86_64)
-Nginx: 1.24.0
-Postgres: psql (14.7 (Ubuntu 14.7-0ubuntu0.22.04.1))
+- Ruby: 3.2.1
+- Rails: 7.0.4.3
+- Capistrano: 3.17.2
+- Ubuntu 22.04.2 LTS (GNU/Linux 5.15.0-71-generic x86_64)
+- Nginx: 1.24.0
+- Postgres: psql (14.7 (Ubuntu 14.7-0ubuntu0.22.04.1))
 
 ---
 
