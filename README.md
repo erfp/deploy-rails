@@ -290,7 +290,7 @@ server {
     add_header Cache-Control public;
   }
 
-  try_files $uri/index.html $uri @puma;
+  try_files $uri/index.html $uri @puma-erfp;
   location @puma-erfp {
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header Host $http_host;
@@ -309,6 +309,7 @@ server {
   keepalive_timeout 10;
 }
 ```
+**WARNING:** Pay attention of naming upstream for nginx if your nginx serves multiple domains! 
 
 Test nginx configs by running:
 ```bash
