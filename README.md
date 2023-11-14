@@ -211,13 +211,13 @@ append :linked_dirs, "log", "tmp/pids", "tmp/cache", "public/uploads"
 Remote server
 ```bash
 ssh ruby
-mkdir -p apps/erfp/shared/config
+mkdir -p apps/erfp/shared/config/credentials
 ```
 
 Local host
 ```bash
 scp config/master.key ruby:apps/erfp/shared/config
-scp config/credentials/production.key ruby:apps/erfp/shared/config
+scp config/credentials/production.key ruby:apps/erfp/shared/config/credentials
 ```
 # FIRST DEPLOY AATEMPT
 ```bash
